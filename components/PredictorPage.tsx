@@ -178,6 +178,7 @@ const PredictorPage: React.FC<PredictorPageProps> = ({ user, onUpdateUser }) => 
                         src="https://i.postimg.cc/mDw7YjT7/bg-edited-gif-f6418d08-29c7-48f8-ae03-bca18b3d46be-GIFSolo-20251103-113356.gif" 
                         alt="Running Chicken" 
                         className="w-full h-full object-contain"
+                        onContextMenu={(e) => e.preventDefault()}
                     />
                 </div>
             </main>
@@ -190,6 +191,7 @@ const PredictorPage: React.FC<PredictorPageProps> = ({ user, onUpdateUser }) => 
                                 src="https://i.postimg.cc/QdDR6xDX/bg-edited-gif-f890646d-f34a-489a-ac85-52d5c03223ad-GIFSolo-20251103-121234.gif" 
                                 alt="Chicken Run Predictor Logo"
                                 className="h-16 w-auto"
+                                onContextMenu={(e) => e.preventDefault()}
                             />
                             <span className="leading-tight text-left">
                                 Chicken Run<br />Predictor

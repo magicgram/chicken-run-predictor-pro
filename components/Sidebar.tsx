@@ -90,7 +90,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose, onShowTestPage, onSh
                         <label htmlFor="profile-pic-upload" onClick={() => user && playSound('buttonClick')} className={`relative p-0.5 rounded-full border-2 border-yellow-400 flex-shrink-0 ${user ? 'cursor-pointer' : 'cursor-default'}`}>
                             <div className="w-12 h-12 rounded-full bg-slate-800 flex items-center justify-center overflow-hidden">
                                 {user?.profilePictureUrl ? (
-                                    <img src={user.profilePictureUrl} alt="Profile" className="w-full h-full object-cover" />
+                                    <img src={user.profilePictureUrl} alt="Profile" className="w-full h-full object-cover" onContextMenu={(e) => e.preventDefault()} />
                                 ) : (
                                     <UserIcon className="h-8 w-8 text-yellow-400"/>
                                 )}

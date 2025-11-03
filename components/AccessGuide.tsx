@@ -71,6 +71,7 @@ const AccessGuide: React.FC = () => {
                     alt="Access guide visual" 
                     className="mt-6 rounded-lg shadow-lg border-4"
                     style={{ borderColor: 'var(--wood-border)' }}
+                    onContextMenu={(e) => e.preventDefault()}
                 />
             </div>
             
