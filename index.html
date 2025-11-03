@@ -28,11 +28,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
         
-        @keyframes chicken-bob {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-5px); }
-        }
-
         @keyframes chicken-run {
             from { transform: translateX(-150px); }
             to { transform: translateX(100vw); }
@@ -394,10 +389,9 @@
             width: 100px;
             height: 100px;
             z-index: 5;
-            animation: chicken-bob 0.5s infinite;
         }
         .chicken.running {
-            animation: chicken-bob 0.2s infinite, chicken-run 3s linear forwards;
+            animation: chicken-run 3s linear forwards;
         }
         
         .game-footer {

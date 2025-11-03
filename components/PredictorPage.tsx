@@ -160,40 +160,11 @@ const PredictorPage: React.FC<PredictorPageProps> = ({ user, onUpdateUser }) => 
                 </div>
                 <div className="road"></div>
                 <div ref={chickenRef} className="chicken">
-                    <svg viewBox="0 0 100 100" style={{ transform: 'scaleX(-1)' }}>
-                        <defs>
-                            <radialGradient id="eyeGradient" cx="0.6" cy="0.6" r="0.6">
-                                <stop offset="0%" stopColor="#00BFFF" />
-                                <stop offset="40%" stopColor="#00BFFF" />
-                                <stop offset="60%" stopColor="#000" />
-                                <stop offset="100%" stopColor="#000" />
-                            </radialGradient>
-                        </defs>
-                        {/* Legs */}
-                        <path d="M42 92 L 40 100 L 44 100 Z M 38 100 L 34 100 L 36 96 Z M 46 100 L 50 100 L 48 96 Z" fill="#F0AD4E"/>
-                        <path d="M58 92 L 56 100 L 60 100 Z M 54 100 L 50 100 L 52 96 Z M 62 100 L 66 100 L 64 96 Z" fill="#F0AD4E"/>
-                        <rect x="40" y="90" width="5" height="10" fill="#F0AD4E" />
-                        <rect x="56" y="90" width="5" height="10" fill="#F0AD4E" />
-                        {/* Body */}
-                        <path d="M 95,55 C 95,85 75,100 50,100 C 25,100 5,85 5,55 C 5,25 30,10 50,15 C 65,15 80,30 90,45 Z" fill="#FDF5E6" stroke="#E0D6C6" strokeWidth="1"/>
-                        {/* Wing */}
-                        <path d="M 60,60 C 40,75 30,85 50,90 C 70,95 80,80 60,60" fill="rgba(250, 235, 215, 0.8)" stroke="#DABFA7" strokeWidth="1" />
-                        {/* Tail */}
-                        <path d="M 5,55 C -10,40 0,20 15,25 Z M 10,50 C -5,35 5,15 20,20 Z M 15,45 C 0,30 10,10 25,15 Z" fill="#A0522D"/>
-                        {/* Head */}
-                        <circle cx="78" cy="40" r="22" fill="#FDF5E6" stroke="#E0D6C6" strokeWidth="1"/>
-                        {/* Beak */}
-                        <polygon points="98,48 108,53 98,58" fill="#F0AD4E" stroke="orange" strokeWidth="1"/>
-                        {/* Wattle */}
-                        <path d="M 95,58 C 93,68 98,72 100,65 Z" fill="#C23B22"/>
-                        {/* Eye */}
-                        <circle cx="85" cy="40" r="10" fill="white" />
-                        <circle cx="87" cy="40" r="7" fill="url(#eyeGradient)" />
-                        <circle cx="86" cy="38" r="2" fill="white" />
-                         {/* Comb */}
-                        <path d="M60 25 C 55 15, 65 10, 70 10 C 75 10, 85 15, 80 25 Z" fill="#D9534F" />
-                        <path d="M70 20 C 65 10, 75 5, 80 5 C 85 5, 95 10, 90 20 Z" fill="#D9534F" />
-                    </svg>
+                    <img 
+                        src="https://i.postimg.cc/mDw7YjT7/bg-edited-gif-f6418d08-29c7-48f8-ae03-bca18b3d46be-GIFSolo-20251103-113356.gif" 
+                        alt="Running Chicken" 
+                        className="w-full h-full object-contain"
+                    />
                 </div>
             </main>
 
