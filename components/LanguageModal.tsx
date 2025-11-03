@@ -44,15 +44,15 @@ const LanguageModal: React.FC<LanguageModalProps> = ({ isOpen, onClose }) => {
         >
             <div 
                 ref={modalRef}
-                className="w-full max-w-sm p-6 space-y-6 content-card main-content"
+                className="w-full max-w-sm p-6 flex flex-col max-h-[85vh] content-card main-content"
             >
-                <div className="text-center">
+                <div className="text-center flex-shrink-0">
                     <h2 id="language-modal-title" className="text-2xl font-bold page-title">
                         {t('languageModal.title')}
                     </h2>
                 </div>
 
-                <div className="space-y-3">
+                <div className="mt-6 space-y-3 overflow-y-auto pr-2 -mr-2">
                     {Object.entries(languages).map(([code, { name, flag }]) => (
                         <button
                             key={code}
