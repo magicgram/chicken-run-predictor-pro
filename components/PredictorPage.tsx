@@ -129,15 +129,22 @@ const PredictorPage: React.FC<PredictorPageProps> = ({ user, onUpdateUser }) => 
                 <div className="road-signs">
                     <div className="sign yellow-sign">
                         <div className="sign-face">
-                            <svg width="3vh" height="6vh" viewBox="0 0 20 40" className="mb-1">
+                           <svg width="4.5vh" height="7vh" viewBox="0 0 20 35" className="mb-1">
                                 <defs>
-                                    <linearGradient id="grad1" x1="0%" y1="0%" x2="0%" y2="100%">
-                                        <stop offset="0%" style={{stopColor: 'rgb(80,80,80)', stopOpacity: 1}} />
-                                        <stop offset="100%" style={{stopColor: 'rgb(0,0,0)', stopOpacity: 1}} />
+                                    <radialGradient id="exclamation-dot-grad" cx="0.4" cy="0.4" r="0.6">
+                                        <stop offset="0%" stopColor="#555555" />
+                                        <stop offset="100%" stopColor="#000000" />
+                                    </radialGradient>
+                                    <linearGradient id="exclamation-line-grad" x1="0" y1="0" x2="1" y2="0">
+                                        <stop offset="0%" stopColor="#000000" />
+                                        <stop offset="50%" stopColor="#555555" />
+                                        <stop offset="100%" stopColor="#000000" />
                                     </linearGradient>
                                 </defs>
-                                <circle cx="10" cy="32" r="7" fill="url(#grad1)" />
-                                <rect x="6" y="0" width="8" height="22" rx="4" fill="url(#grad1)" />
+                                {/* The line part */}
+                                <rect x="6" y="0" width="8" height="20" rx="4" fill="url(#exclamation-line-grad)" />
+                                {/* The dot part */}
+                                <circle cx="10" cy="28" r="6" fill="url(#exclamation-dot-grad)" />
                             </svg>
                             <span>Start</span>
                         </div>
