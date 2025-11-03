@@ -28,7 +28,7 @@ const PredictorPage: React.FC<PredictorPageProps> = ({ user, onUpdateUser }) => 
     const [showResult, setShowResult] = useState(false);
 
     const chickenRef = useRef<HTMLDivElement>(null);
-    const { t } = useTranslations();
+    const { t, formatCurrency } = useTranslations();
     const { playSound } = useSound();
 
     const predictionsUsed = user.predictionCount;
@@ -99,7 +99,10 @@ const PredictorPage: React.FC<PredictorPageProps> = ({ user, onUpdateUser }) => 
     };
 
     if (user.awaitingDeposit || predictionsLeft <= 0) {
-        const depositInfo = t('predictor.depositInfo').replace('{limit}', PREDICTION_LIMIT.toString());
+        const depositInfo = t('predictor.depositInfo', { 
+            limit: PREDICTION_LIMIT, 
+            redepositAmount: formatCurrency(400) 
+        });
         return (
              <div className="flex items-center justify-center min-h-screen p-4">
                  <div className="static-clouds"></div>

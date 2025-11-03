@@ -16,7 +16,7 @@ const AFFILIATE_LINK = import.meta.env.VITE_AFFILIATE_LINK || 'https://1waff.com
 
 const LoginPage: React.FC<LoginPageProps> = ({ onLogin, error, isLoading, infoMessage }) => {
     const [userId, setUserId] = useState('');
-    const { t, language } = useTranslations();
+    const { t, formatCurrency } = useTranslations();
     const { playSound } = useSound();
 
     const handleSubmit = (e: React.FormEvent) => {
@@ -38,7 +38,8 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin, error, isLoading, infoMe
         
         // This is brittle, but necessary without API changes
         if (infoMessage.includes('successfully completed registration')) {
-            const lines = t('info.registeredNeedsDeposit').split('\n');
+            const depositAmount = formatCurrency(500);
+            const lines = t('info.registeredNeedsDeposit', { depositAmount }).split('\n');
             return (
                  <div className="p-3 bg-black/20 border-2 border-yellow-500/50 rounded-lg text-sm space-y-2">
                      {lines.map((line, index) => {
