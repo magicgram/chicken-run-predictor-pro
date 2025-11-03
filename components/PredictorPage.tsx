@@ -178,7 +178,16 @@ const PredictorPage: React.FC<PredictorPageProps> = ({ user, onUpdateUser }) => 
             <footer className="game-footer">
                 {!showResult && (
                     <>
-                        <div className="prediction-placeholder">?</div>
+                        <div className="prediction-placeholder flex items-center justify-center gap-4 py-2 px-4 !text-2xl">
+                            <img 
+                                src="https://i.postimg.cc/QdDR6xDX/bg-edited-gif-f890646d-f34a-489a-ac85-52d5c03223ad-GIFSolo-20251103-121234.gif" 
+                                alt="Chicken Run Predictor Logo"
+                                className="h-16 w-auto"
+                            />
+                            <span className="leading-tight text-left">
+                                Chicken Run<br />Predictor
+                            </span>
+                        </div>
                         <button 
                             className="action-button"
                             onClick={() => { playSound('buttonClick'); handleGetSignal(); }}
