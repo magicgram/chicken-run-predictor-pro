@@ -39,8 +39,8 @@
         }
 
         @keyframes move-clouds-slow {
-            from { background-position: 0 0, 150px 50px; }
-            to { background-position: -500px 0, -425px 50px; }
+            from { background-position: -60% 10%, -80% 30%, -70% 0; }
+            to { background-position: 160% 10%, 140% 30%, 180% 0; }
         }
         
         @keyframes shine-animation {
@@ -108,14 +108,19 @@
         
         .static-clouds {
             position: fixed;
-            top: 10%;
+            top: 0;
             left: 0;
             right: 0;
-            height: 200px;
+            height: 40vh;
             z-index: -1;
-            background: 
-                url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 50"><circle cx="25" cy="25" r="15" fill="rgba(255,255,255,0.8)"/><circle cx="50" cy="25" r="20" fill="rgba(255,255,255,0.8)"/><circle cx="75" cy="25" r="15" fill="rgba(255,255,255,0.8)"/></svg>') 0 0 / 200px 100px,
-                url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 60"><circle cx="30" cy="30" r="20" fill="rgba(255,255,255,0.7)"/><circle cx="60" cy="30" r="25" fill="rgba(255,255,255,0.7)"/><circle cx="90" cy="30" r="20" fill="rgba(255,255,255,0.7)"/></svg>') 150px 50px / 250px 120px;
+            background:
+                radial-gradient(ellipse at top, #d7d7d7 0%, transparent 50%),
+                radial-gradient(ellipse at bottom, #e0e0e0 0%, transparent 60%),
+                radial-gradient(ellipse at center, #f0f0f0 0%, transparent 70%);
+            background-repeat: no-repeat;
+            background-size: 60% 40%, 80% 50%, 70% 60%;
+            opacity: 0.5;
+            filter: blur(10px);
             animation: move-clouds-slow 120s linear infinite;
         }
         
@@ -273,19 +278,24 @@
 
         .clouds {
             position: absolute;
-            top: 10%;
+            top: 0;
             left: 0;
             right: 0;
-            height: 200px;
-            background: 
-                url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 50"><circle cx="25" cy="25" r="15" fill="rgba(255,255,255,0.8)"/><circle cx="50" cy="25" r="20" fill="rgba(255,255,255,0.8)"/><circle cx="75" cy="25" r="15" fill="rgba(255,255,255,0.8)"/></svg>') 0 0 / 200px 100px,
-                url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 60"><circle cx="30" cy="30" r="20" fill="rgba(255,255,255,0.7)"/><circle cx="60" cy="30" r="25" fill="rgba(255,255,255,0.7)"/><circle cx="90" cy="30" r="20" fill="rgba(255,255,255,0.7)"/></svg>') 150px 50px / 250px 120px;
+            height: 40vh;
+            background:
+                radial-gradient(ellipse at top, #ffffff 0%, transparent 50%),
+                radial-gradient(ellipse at bottom, #f5f5f5 0%, transparent 60%),
+                radial-gradient(ellipse at center, #fafafa 0%, transparent 70%);
+            background-repeat: no-repeat;
+            background-size: 50% 35%, 70% 45%, 60% 55%;
+            opacity: 0.7;
+            filter: blur(8px);
             animation: move-clouds 60s linear infinite;
         }
 
         @keyframes move-clouds {
-            from { background-position: 0 0, 150px 50px; }
-            to { background-position: -1000px 0, -850px 50px; }
+            from { background-position: -50% 5%, -70% 20%, -60% 0; }
+            to { background-position: 150% 5%, 130% 20%, 160% 0; }
         }
 
         .wall {
