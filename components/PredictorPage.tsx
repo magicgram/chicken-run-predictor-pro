@@ -26,6 +26,7 @@ const PredictorPage: React.FC<PredictorPageProps> = ({ user, onUpdateUser }) => 
     const [isGenerating, setIsGenerating] = useState(false);
     const [prediction, setPrediction] = useState<{ value: string; accuracy: number } | null>(null);
     const [showResult, setShowResult] = useState(false);
+    const [lastPredictionValue, setLastPredictionValue] = useState<string | null>(null); // New state to track the last value
 
     const chickenRef = useRef<HTMLDivElement>(null);
     const { t, formatCurrency } = useTranslations();
@@ -68,7 +69,13 @@ const PredictorPage: React.FC<PredictorPageProps> = ({ user, onUpdateUser }) => 
             // Generate prediction
             const isRare = Math.random() < RARE_CHANCE;
             const multipliers = isRare ? RARE_MULTIPLIERS : COMMON_MULTIPLIERS;
-            const value = multipliers[Math.floor(Math.random() * multipliers.length)];
+            
+            let value;
+            // Loop to ensure the new value is not the same as the last one,
+            // as long as there's more than one option.
+            do {
+                value = multipliers[Math.floor(Math.random() * multipliers.length)];
+            } while (multipliers.length > 1 && value === lastPredictionValue);
             
             // Generate a random accuracy between 70% and 99%
             const minAccuracy = 70;
@@ -76,6 +83,7 @@ const PredictorPage: React.FC<PredictorPageProps> = ({ user, onUpdateUser }) => 
             const accuracy = Math.floor(Math.random() * (maxAccuracy - minAccuracy + 1)) + minAccuracy;
 
             setPrediction({ value, accuracy });
+            setLastPredictionValue(value); // Update the last prediction value
             onUpdateUser({ ...user, predictionCount: user.predictionCount + 1 });
             
             setIsGenerating(false);
