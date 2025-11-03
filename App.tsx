@@ -269,7 +269,7 @@ const AppContent: React.FC = () => {
             
             <header className="absolute top-0 left-0 right-0 p-4 flex justify-between items-center text-white z-20">
                 {isPredictorPageActive && user ? (
-                     <h1 className="font-bold text-lg text-shadow">{t('predictor.welcome')} - {user.id}</h1>
+                     <h1 className="font-bold text-lg" style={{textShadow: '1px 1px 3px rgba(0,0,0,0.5)'}}>{t('predictor.welcome')} - {user.id}</h1>
                 ) : (
                     <div /> // Placeholder to keep the menu button on the right
                 )}
@@ -277,7 +277,7 @@ const AppContent: React.FC = () => {
                     {isPredictorPageActive && (
                         <button 
                             onClick={toggleMute} 
-                            className="p-1 rounded-full bg-black/20 hover:bg-black/40 transition-colors"
+                            className="header-btn"
                             aria-label={isMuted ? "Unmute sound" : "Mute sound"}
                         >
                             {isMuted ? <SoundMutedIcon /> : <SoundIcon />}
@@ -285,14 +285,14 @@ const AppContent: React.FC = () => {
                     )}
                     <button 
                         onClick={toggleAccessGuide}
-                        className="p-1 rounded-full bg-black/20 hover:bg-black/40 transition-colors"
+                        className="header-btn"
                         aria-label={activeGuide === 'access' ? `${t('header.hide')} ${t('header.guide')}` : t('header.guide')}
                     >
                         <InfoIcon />
                     </button>
                     <button
                         onClick={() => setIsMenuOpen(true)}
-                        className="p-1 rounded-full bg-black/20 hover:bg-black/40 transition-colors"
+                        className="header-btn"
                         aria-label="Open menu"
                     >
                         <MenuIcon />
