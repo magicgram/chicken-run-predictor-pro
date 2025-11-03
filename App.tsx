@@ -41,7 +41,7 @@ const AppContent: React.FC = () => {
     const [isPasswordModalOpen, setIsPasswordModalOpen] = useState<boolean>(false);
     const [isLanguageModalOpen, setIsLanguageModalOpen] = useState<boolean>(false);
     const { t } = useTranslations();
-    const { isMuted, toggleMute } = useSound();
+    const { isMuted, toggleMute, playSound } = useSound();
 
     
     // State to track login attempts from localStorage
@@ -68,6 +68,7 @@ const AppContent: React.FC = () => {
                         const updatedUser = { ...parsedUser, predictionCount: 0, awaitingDeposit: false, knownRedeposits: result.newRedepositCount };
                         localStorage.setItem(`${USER_DATA_KEY_PREFIX}${updatedUser.id}`, JSON.stringify(updatedUser));
                         setUser(updatedUser);
+                        playSound('success');
                         alert(t('alert.depositSuccess'));
                     } else {
                         setUser(parsedUser);
@@ -78,7 +79,7 @@ const AppContent: React.FC = () => {
             }
         }
         setIsLoading(false);
-    }, [t]);
+    }, [t, playSound]);
 
     useEffect(() => {
         loadUserFromStorage();
@@ -91,6 +92,7 @@ const AppContent: React.FC = () => {
         const result = await verificationService.verifyInitialLogin(userId);
         
         if (result.success && result.redepositCount !== undefined) {
+            playSound('success');
             const apiRedepositCount = result.redepositCount;
             const userStorageKey = `${USER_DATA_KEY_PREFIX}${userId}`;
             const storedUserJSON = localStorage.getItem(userStorageKey);
@@ -142,6 +144,7 @@ const AppContent: React.FC = () => {
                 localStorage.setItem('loginAttempts', JSON.stringify(updatedAttempts));
             }
         } else {
+            playSound('error');
             // Check for the specific "not found" error from the backend.
             if (result.message && result.message.startsWith("No registration found yet!")) {
                 const currentCount = loginAttempts[userId] || 0;
@@ -166,6 +169,7 @@ const AppContent: React.FC = () => {
     };
 
     const handleLogout = () => {
+        playSound('modalClose');
         // Only remove the active session key, not the user's data
         localStorage.removeItem(ACTIVE_USER_KEY);
         setUser(null);
@@ -180,12 +184,14 @@ const AppContent: React.FC = () => {
 
     const handleProfilePictureChange = (url: string) => {
         if (user) {
+            playSound('success');
             const updatedUser = { ...user, profilePictureUrl: url };
             updateUser(updatedUser);
         }
     };
 
     const toggleAccessGuide = () => {
+        playSound(activeGuide === 'access' ? 'modalClose' : 'modalOpen');
         setIsMenuOpen(false); // Always close menu when interacting with guide
         if (activeGuide === 'access') {
             setActiveGuide(null);
@@ -196,29 +202,34 @@ const AppContent: React.FC = () => {
     };
     
     const handleShowSetupGuide = () => {
+        playSound('buttonClick');
         setShowTestPage(false);
         setActiveGuide('setup');
         setIsMenuOpen(false);
     }
 
     const handleShowTestPage = () => {
+        playSound('buttonClick');
         setIsMenuOpen(false);
         setIsPasswordModalOpen(true);
     };
     
     const handlePasswordSuccess = () => {
+        playSound('success');
         setIsPasswordModalOpen(false);
         setActiveGuide(null);
         setShowTestPage(true);
     };
 
     const handleShowDashboard = () => {
+        playSound('buttonClick');
         setActiveGuide(null);
         setShowTestPage(false);
         setIsMenuOpen(false);
     };
 
     const handleShowLanguageModal = () => {
+        playSound('buttonClick');
         setIsMenuOpen(false);
         setIsLanguageModalOpen(true);
     }
@@ -249,16 +260,16 @@ const AppContent: React.FC = () => {
 
             <PasswordModal 
                 isOpen={isPasswordModalOpen}
-                onClose={() => setIsPasswordModalOpen(false)}
+                onClose={() => { playSound('modalClose'); setIsPasswordModalOpen(false); }}
                 onSuccess={handlePasswordSuccess}
             />
             <LanguageModal
                 isOpen={isLanguageModalOpen}
-                onClose={() => setIsLanguageModalOpen(false)}
+                onClose={() => { playSound('modalClose'); setIsLanguageModalOpen(false); }}
             />
             <Sidebar
                 isOpen={isMenuOpen}
-                onClose={() => setIsMenuOpen(false)}
+                onClose={() => { playSound('modalClose'); setIsMenuOpen(false); }}
                 onShowTestPage={handleShowTestPage}
                 onShowDashboard={handleShowDashboard}
                 onProfilePictureChange={handleProfilePictureChange}
@@ -276,7 +287,7 @@ const AppContent: React.FC = () => {
                 <div className="flex items-center gap-4">
                     {isPredictorPageActive && (
                         <button 
-                            onClick={toggleMute} 
+                            onClick={() => { playSound('buttonClick'); toggleMute(); }}
                             className="header-btn"
                             aria-label={isMuted ? "Unmute sound" : "Mute sound"}
                         >
@@ -291,7 +302,7 @@ const AppContent: React.FC = () => {
                         <InfoIcon />
                     </button>
                     <button
-                        onClick={() => setIsMenuOpen(true)}
+                        onClick={() => { playSound('modalOpen'); setIsMenuOpen(true); }}
                         className="header-btn"
                         aria-label="Open menu"
                     >

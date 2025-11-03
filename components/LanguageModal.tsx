@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { useTranslations } from '../hooks/useTranslations';
+import { useSound } from '../hooks/useSound';
 import { languages } from '../i18n/translations';
 
 interface LanguageModalProps {
@@ -9,7 +10,14 @@ interface LanguageModalProps {
 
 const LanguageModal: React.FC<LanguageModalProps> = ({ isOpen, onClose }) => {
     const { t, setLanguage, language } = useTranslations();
+    const { playSound } = useSound();
     const modalRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        if (isOpen) {
+            playSound('modalOpen');
+        }
+    }, [isOpen, playSound]);
 
     // Handle clicks outside the modal content to close it
     const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -19,6 +27,7 @@ const LanguageModal: React.FC<LanguageModalProps> = ({ isOpen, onClose }) => {
     };
     
     const handleLanguageSelect = (langCode: string) => {
+        playSound('buttonClick');
         setLanguage(langCode);
         onClose();
     };

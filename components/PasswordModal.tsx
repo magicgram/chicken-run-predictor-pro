@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useTranslations } from '../hooks/useTranslations';
+import { useSound } from '../hooks/useSound';
 
 interface PasswordModalProps {
     isOpen: boolean;
@@ -17,27 +18,34 @@ const PasswordModal: React.FC<PasswordModalProps> = ({ isOpen, onClose, onSucces
     const [error, setError] = useState('');
     const modalRef = useRef<HTMLDivElement>(null);
     const { t } = useTranslations();
+    const { playSound } = useSound();
 
     // Reset state when modal is closed
     useEffect(() => {
+        if (isOpen) {
+            playSound('modalOpen');
+        }
         if (!isOpen) {
             setTimeout(() => {
                 setPassword('');
                 setError('');
             }, 300); // Delay reset to allow for closing animation
         }
-    }, [isOpen]);
+    }, [isOpen, playSound]);
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
+        playSound('buttonClick');
         if (!CORRECT_PASSWORD) {
             setError('Password is not set in environment variables.');
+            playSound('error');
             return;
         }
         if (password === CORRECT_PASSWORD) {
             onSuccess();
         } else {
             setError(t('passwordModal.error'));
+            playSound('error');
             setPassword(''); // Clear input on error
         }
     };
@@ -95,7 +103,7 @@ const PasswordModal: React.FC<PasswordModalProps> = ({ isOpen, onClose, onSucces
                     <div className="flex gap-4 pt-2">
                          <button
                             type="button"
-                            onClick={onClose}
+                            onClick={() => { playSound('buttonClick'); onClose(); }}
                             className="w-full btn-game"
                         >
                             {t('passwordModal.cancel')}

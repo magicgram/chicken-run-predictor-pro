@@ -1,9 +1,9 @@
 
 
-
 import React, { useState } from 'react';
 import CopyIcon from './icons/CopyIcon';
 import { useTranslations } from '../hooks/useTranslations';
+import { useSound } from '../hooks/useSound';
 
 
 const Step: React.FC<{ number: number; children: React.ReactNode }> = ({ number, children }) => (
@@ -19,8 +19,10 @@ const PromoCode: React.FC = () => {
     const [copied, setCopied] = useState(false);
     const promoCode = "FSS23";
     const { t } = useTranslations();
+    const { playSound } = useSound();
 
     const handleCopy = () => {
+        playSound('copy');
         navigator.clipboard.writeText(promoCode).then(() => {
             setCopied(true);
             setTimeout(() => setCopied(false), 2000); // Reset after 2 seconds
@@ -64,6 +66,12 @@ const AccessGuide: React.FC = () => {
                     {t('accessGuide.title')}
                 </h2>
                 <p className="text-gray-200">{t('accessGuide.subtitle')}</p>
+                <img 
+                    src="https://i.postimg.cc/g0R0b25Y/Picsart-25-11-03-11-47-16-281.jpg" 
+                    alt="Access guide visual" 
+                    className="mt-6 rounded-lg shadow-lg border-4"
+                    style={{ borderColor: 'var(--wood-border)' }}
+                />
             </div>
             
             <div className="space-y-6">

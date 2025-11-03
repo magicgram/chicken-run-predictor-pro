@@ -7,6 +7,7 @@ import DashboardIcon from './icons/DashboardIcon';
 import LanguageIcon from './icons/LanguageIcon';
 import LogoutIcon from './icons/LogoutIcon';
 import { useTranslations } from '../hooks/useTranslations';
+import { useSound } from '../hooks/useSound';
 import NexusPlayLogoIcon from './icons/NexusPlayLogoIcon';
 
 interface SidebarProps {
@@ -20,18 +21,23 @@ interface SidebarProps {
     user: User | null;
 }
 
-const NavLink: React.FC<{ onClick: () => void; icon: React.ReactNode; text: string }> = ({ onClick, icon, text }) => (
-    <a 
-        onClick={onClick} 
-        className="group relative flex items-center w-full p-3 space-x-4 text-base text-gray-200 rounded-lg hover:bg-black/20 focus:outline-none focus:bg-black/20 transition-colors duration-200 cursor-pointer"
-    >
-        {icon}
-        <span>{text}</span>
-    </a>
-);
+const NavLink: React.FC<{ onClick: () => void; icon: React.ReactNode; text: string }> = ({ onClick, icon, text }) => {
+    const { playSound } = useSound();
+    return (
+        <a 
+            onClick={() => { playSound('buttonClick'); onClick(); }} 
+            className="group relative flex items-center w-full p-3 space-x-4 text-base text-gray-200 rounded-lg hover:bg-black/20 focus:outline-none focus:bg-black/20 transition-colors duration-200 cursor-pointer"
+        >
+            {icon}
+            <span>{text}</span>
+        </a>
+    );
+};
+
 
 const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose, onShowTestPage, onShowDashboard, user, onProfilePictureChange, onShowLanguageModal, onLogout }) => {
     const { t } = useTranslations();
+    const { playSound } = useSound();
 
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];
@@ -81,7 +87,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose, onShowTestPage, onSh
                             onChange={handleFileChange}
                             disabled={!user}
                         />
-                        <label htmlFor="profile-pic-upload" className={`relative p-0.5 rounded-full border-2 border-yellow-400 flex-shrink-0 ${user ? 'cursor-pointer' : 'cursor-default'}`}>
+                        <label htmlFor="profile-pic-upload" onClick={() => user && playSound('buttonClick')} className={`relative p-0.5 rounded-full border-2 border-yellow-400 flex-shrink-0 ${user ? 'cursor-pointer' : 'cursor-default'}`}>
                             <div className="w-12 h-12 rounded-full bg-slate-800 flex items-center justify-center overflow-hidden">
                                 {user?.profilePictureUrl ? (
                                     <img src={user.profilePictureUrl} alt="Profile" className="w-full h-full object-cover" />

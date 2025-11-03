@@ -42,6 +42,12 @@ const PredictorPage: React.FC<PredictorPageProps> = ({ user, onUpdateUser }) => 
             document.body.classList.remove('game-mode');
         };
     }, []);
+    
+    useEffect(() => {
+        if (showResult && prediction) {
+            playSound('predictionReveal');
+        }
+    }, [showResult, prediction, playSound]);
 
     const handleGetSignal = () => {
         if (predictionsLeft <= 0 || user.awaitingDeposit || isGenerating || showResult) {
@@ -88,6 +94,7 @@ const PredictorPage: React.FC<PredictorPageProps> = ({ user, onUpdateUser }) => 
     };
 
     const handleDeposit = () => {
+        playSound('buttonClick');
         window.open(AFFILIATE_LINK, '_blank');
     };
 
@@ -174,7 +181,7 @@ const PredictorPage: React.FC<PredictorPageProps> = ({ user, onUpdateUser }) => 
                         <div className="prediction-placeholder">?</div>
                         <button 
                             className="action-button"
-                            onClick={handleGetSignal}
+                            onClick={() => { playSound('buttonClick'); handleGetSignal(); }}
                             disabled={isGenerating}
                         >
                              <div className="btn-screw" style={{ bottom: '12px', left: '12px' }}></div>
@@ -198,7 +205,7 @@ const PredictorPage: React.FC<PredictorPageProps> = ({ user, onUpdateUser }) => 
                         </div>
                          <button 
                             className="action-button"
-                            onClick={handleNextRound}
+                            onClick={() => { playSound('buttonClick'); handleNextRound(); }}
                         >
                             <div className="btn-screw" style={{ bottom: '12px', left: '12px' }}></div>
                             <div className="btn-screw" style={{ bottom: '12px', right: '12px' }}></div>

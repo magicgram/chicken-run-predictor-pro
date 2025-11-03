@@ -1,9 +1,11 @@
 
 
 
+
 import React, { useState, useEffect } from 'react';
 import CopyIcon from './icons/CopyIcon';
 import { useTranslations } from '../hooks/useTranslations';
+import { useSound } from '../hooks/useSound';
 
 const Step: React.FC<{ number: number; title: string; children: React.ReactNode }> = ({ number, title, children }) => (
     <div className="flex items-start space-x-4">
@@ -21,6 +23,7 @@ const URLBlock: React.FC = () => {
     const [postbackUrl, setPostbackUrl] = useState('');
     const [copied, setCopied] = useState(false);
     const { t } = useTranslations();
+    const { playSound } = useSound();
 
     useEffect(() => {
         // This ensures the code only runs on the client-side where window is available.
@@ -29,6 +32,7 @@ const URLBlock: React.FC = () => {
 
     const handleCopy = () => {
         if (!postbackUrl) return;
+        playSound('copy');
         navigator.clipboard.writeText(postbackUrl).then(() => {
             setCopied(true);
             setTimeout(() => setCopied(false), 2000);

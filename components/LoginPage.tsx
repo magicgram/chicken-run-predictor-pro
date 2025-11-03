@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useTranslations } from '../hooks/useTranslations';
+import { useSound } from '../hooks/useSound';
 
 interface LoginPageProps {
     onLogin: (userId: string) => void;
@@ -16,15 +17,18 @@ const AFFILIATE_LINK = import.meta.env.VITE_AFFILIATE_LINK || 'https://1waff.com
 const LoginPage: React.FC<LoginPageProps> = ({ onLogin, error, isLoading, infoMessage }) => {
     const [userId, setUserId] = useState('');
     const { t, language } = useTranslations();
+    const { playSound } = useSound();
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
+        playSound('buttonClick');
         if (userId.trim()) {
             onLogin(userId.trim());
         }
     };
 
     const handleRegister = () => {
+        playSound('buttonClick');
         window.open(AFFILIATE_LINK, '_blank');
     };
 

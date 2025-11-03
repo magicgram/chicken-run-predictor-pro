@@ -1,8 +1,10 @@
 
 
 
+
 import React, { useState } from 'react';
 import { useTranslations } from '../hooks/useTranslations';
+import { useSound } from '../hooks/useSound';
 
 interface TestPageProps {
     onShowSetupGuide: () => void;
@@ -14,10 +16,13 @@ const TestPage: React.FC<TestPageProps> = ({ onShowSetupGuide }) => {
     const [responseMessage, setResponseMessage] = useState<string | null>(null);
     const [error, setError] = useState<string | null>(null);
     const { t } = useTranslations();
+    const { playSound } = useSound();
 
     const handleTest = async (params: Record<string, string>) => {
+        playSound('buttonClick');
         if (!userId.trim()) {
             setError(t('testPage.errorUserId'));
+            playSound('error');
             return;
         }
         setIsLoading(true);
@@ -34,9 +39,11 @@ const TestPage: React.FC<TestPageProps> = ({ onShowSetupGuide }) => {
             if (!response.ok) {
                 throw new Error(data.message || `Request failed with status ${response.status}`);
             }
-
+            
+            playSound('success');
             setResponseMessage(`✅ ${t('testPage.success')} ${JSON.stringify(data, null, 2)}`);
         } catch (err: any) {
+            playSound('error');
             setError(`❌ ${t('testPage.error')} ${err.message}`);
         } finally {
             setIsLoading(false);
@@ -111,7 +118,7 @@ const TestPage: React.FC<TestPageProps> = ({ onShowSetupGuide }) => {
                 </div>
                 
                 <button
-                    onClick={onShowSetupGuide}
+                    onClick={() => { playSound('buttonClick'); onShowSetupGuide(); }}
                     type="button"
                     className="w-full max-w-sm mx-auto btn-game"
                 >

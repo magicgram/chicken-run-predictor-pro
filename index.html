@@ -54,6 +54,11 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+        @keyframes lighting-sweep {
+            from { transform: skewX(-25deg) translateX(-150%); }
+            to { transform: skewX(-25deg) translateX(150%); }
+        }
+
         /* --- NEW GAME THEME STYLES --- */
         :root {
             --sky-top: #65b2e8;
@@ -435,6 +440,7 @@
             text-shadow: 1px 1px 1px rgba(255,255,255,0.6);
             transition: all 0.1s ease;
             position: relative;
+            overflow: hidden;
         }
         .action-button:active {
             transform: translateY(4px);
@@ -524,6 +530,8 @@
             border-radius: 50%;
             background-color: black;
             transition: transform 0.2s;
+            position: relative;
+            overflow: hidden;
         }
         .header-btn:hover {
             transform: scale(1.1);
@@ -531,6 +539,27 @@
         .header-btn svg {
             width: 20px;
             height: 20px;
+        }
+
+        /* --- Lighting Sweep Animation --- */
+        .btn-game::before,
+        .action-button::before,
+        .header-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transform: skewX(-25deg) translateX(-150%);
+            pointer-events: none;
+        }
+
+        .btn-game:hover:not(:disabled)::before,
+        .action-button:hover:not(:disabled)::before,
+        .header-btn:hover:not(:disabled)::before {
+            animation: lighting-sweep 0.8s ease-in-out;
         }
 
     </style>
